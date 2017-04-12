@@ -2,6 +2,7 @@ package com.pengjunwei.adminking.ui.login;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.pengjunwei.adminking.base.BaseInteractor;
 import com.pengjunwei.adminking.interactor.UserInteractor;
 import com.pengjunwei.adminking.pojo.SLoginResult;
+import com.pengjunwei.adminking.ui.CorporationActivity;
 import com.pengjunwei.android.mvp.activity.BaseActivityPresenter;
 import com.pengjunwei.support.tool.FOpenLog;
 import com.pengjunwei.support.tool.RxSubscriber;
@@ -81,6 +83,8 @@ public class LoginPresenter extends BaseActivityPresenter implements ILoginPrese
             Toast.makeText(provider.getActivity(), "登录失败，请重试", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(provider.getActivity(), "登录成功！", Toast.LENGTH_SHORT).show();
+            provider.getActivity().startActivity(new Intent(provider.getActivity(), CorporationActivity.class));
+            provider.getActivity().finish();
         }
 
 //        if (mLoginListener != null) {

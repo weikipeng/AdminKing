@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/name"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            app:bootstrapBrand="info"
+            app:roundedCorners="true"/>
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="新增"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="lg"
+            app:roundedCorners="true"/>
+    </LinearLayout>
+
+    <com.beardedhen.androidbootstrap.AwesomeTextView
+        android:id="@+id/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="客户列表"
+        app:bootstrapBrand="primary"/>
+
+    <com.beardedhen.androidbootstrap.BootstrapWell
+        android:id="@+id/loginLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subTitle"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:visibility="visible"
+        app:bootstrapSize="xl"
+        tools:visibility="visible">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.beardedhen.androidbootstrap.BootstrapWell>
+
+</RelativeLayout>
