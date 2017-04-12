@@ -79,6 +79,8 @@ public class LoginPresenter extends BaseActivityPresenter implements ILoginPrese
 
         if (!isSuccess) {
             Toast.makeText(provider.getActivity(), "登录失败，请重试", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(provider.getActivity(), "登录成功！", Toast.LENGTH_SHORT).show();
         }
 
 //        if (mLoginListener != null) {
