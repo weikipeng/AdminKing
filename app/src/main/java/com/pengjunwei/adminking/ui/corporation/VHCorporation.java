@@ -53,7 +53,7 @@ public class VHCorporation extends BaseRecyclerViewHolder {
 
         @Override
         public VHCorporation onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, IViewParam viewParam) {
-            return new VHCorporation(inflater.inflate(R.layout.layout_corporation, parent, false), viewParam);
+            return new VHCorporation(inflater.inflate(R.layout.item_corporation, parent, false), viewParam);
         }
     }
 }

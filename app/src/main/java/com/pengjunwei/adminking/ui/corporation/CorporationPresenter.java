@@ -78,7 +78,7 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter implements I
         } else {
             provider.showToast("添加客户成功");
             mAdapter.add(result);
-            mAdapter.notifyItemInserted(0);
+            mAdapter.notifyItemInserted(mAdapter.getItemCount()-1);
         }
     }
 }

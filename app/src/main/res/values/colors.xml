@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="backgroundContentPress">#E0E0E0</color>
+    <color name="backgroundContent">#FFFFFF</color>
     <color name="colorBackgroundBoard">#FFFFFF</color>
     <color name="colorText">#CCFFFFFF</color>
 </resources>
