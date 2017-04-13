@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by WikiPeng on 2017/4/13 10:35.
  */
-public class SCorporation {
+public class SCorporation extends SBaseResult{
 
     /**
      * id : 1

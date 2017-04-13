@@ -1,11 +1,15 @@
 package com.pengjunwei.adminking.interactor;
 
 import com.pengjunwei.adminking.base.BaseInteractor;
+import com.pengjunwei.adminking.pojo.SCorporation;
 import com.pengjunwei.adminking.pojo.SCorporationList;
 import com.pengjunwei.support.tool.RxSchedulersHelper;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -15,10 +19,16 @@ public class CorporationInteractor extends BaseInteractor {
     public interface WebInterface {
         @GET("/kingmath/corporation/list.php")
         Observable<SCorporationList> getList(@Query("offset") int offset, @Query("limit") int limit);
+
+        @POST("/kingmath/corporation/add.php")
+        @FormUrlEncoded
+        Observable<SCorporation> add(@Field("name") String name);
     }
 
     public interface Interactor {
         Observable<SCorporationList> getList(int pageIndex, int pageSize);
+
+        Observable<SCorporation> add(String name);
     }
 
     public static class InteractorImpl implements Interactor {
@@ -28,6 +38,11 @@ public class CorporationInteractor extends BaseInteractor {
         public Observable<SCorporationList> getList(int pageIndex, int pageSize) {
             return webInterface.getList(pageIndex * pageIndex, pageSize)
                     .compose(RxSchedulersHelper.<SCorporationList>applyMainSchedulers());
+        }
+
+        @Override
+        public Observable<SCorporation> add(String name) {
+            return webInterface.add(name).compose(RxSchedulersHelper.<SCorporation>applyMainSchedulers());
         }
     }
 }

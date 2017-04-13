@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="10dp">
+    android:layout_height="wrap_content"
+    android:minHeight="45dp"
+    android:orientation="horizontal">
 
     <com.beardedhen.androidbootstrap.AwesomeTextView
         android:id="@+id/name"
         style="@style/TextView"
-        android:layout_weight="1"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         tools:text="名字"/>
 
     <com.beardedhen.androidbootstrap.AwesomeTextView
         android:id="@+id/createTime"
         style="@style/TextView"
-        android:layout_weight="1"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         tools:text="名字"/>
 
-    <com.beardedhen.androidbootstrap.AwesomeTextView
-        android:id="@+id/updateTime"
-        style="@style/TextView"
-        android:layout_weight="1"
-        tools:text="名字"/>
-</LinearLayout>
+    <!--<com.beardedhen.androidbootstrap.AwesomeTextView-->
+    <!--android:id="@+id/updateTime"-->
+    <!--style="@style/TextView"-->
+    <!--android:layout_weight="1"-->
+    <!--tools:text="名字"/>-->
+</RelativeLayout>

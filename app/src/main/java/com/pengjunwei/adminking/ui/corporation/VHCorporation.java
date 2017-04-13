@@ -19,7 +19,7 @@ public class VHCorporation extends BaseRecyclerViewHolder {
 
     protected TextView name;
     protected TextView createTime;
-    protected TextView updateTime;
+//    protected TextView updateTime;
 
     public VHCorporation(View itemView, IViewParam viewParam) {
         super(itemView, viewParam);
@@ -29,7 +29,7 @@ public class VHCorporation extends BaseRecyclerViewHolder {
     protected void initView() {
         name = (TextView) itemView.findViewById(R.id.name);
         createTime = (TextView) itemView.findViewById(R.id.createTime);
-        updateTime = (TextView) itemView.findViewById(R.id.updateTime);
+//        updateTime = (TextView) itemView.findViewById(R.id.updateTime);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class VHCorporation extends BaseRecyclerViewHolder {
 
         name.setText(corporation.name);
         createTime.setText(corporation.createDate);
-        updateTime.setText(corporation.updateDate);
+//        updateTime.setText(corporation.updateDate);
     }
 
     public static class LayoutProvider implements ILayoutProvider {
