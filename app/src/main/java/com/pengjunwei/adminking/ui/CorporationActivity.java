@@ -17,5 +17,6 @@ public class CorporationActivity extends BaseMVPActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corporation);
         mPresenter = new CorporationPresenter(this);
+        mPresenter.refresh(true);
     }
 }
