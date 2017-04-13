@@ -4,8 +4,11 @@ import android.app.Activity;
 
 import com.pengjunwei.adminking.base.BaseInteractor;
 import com.pengjunwei.adminking.interactor.CorporationInteractor;
+import com.pengjunwei.adminking.pojo.SCorporation;
 import com.pengjunwei.adminking.pojo.SCorporationList;
+import com.pengjunwei.android.mvp.recyclerview.BaseRecyclerAdapter;
 import com.pengjunwei.android.mvp.recyclerview.BaseRecyclerPagePresenter;
+import com.pengjunwei.android.mvp.recyclerview.IRecyclerView;
 import com.pengjunwei.support.tool.RxSubscriber;
 
 /**
@@ -16,8 +19,8 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter {
 
     public CorporationPresenter(Activity activity) {
         super(activity);
-        initData();
         mvpView = new CorporationView(provider, this);
+        initData();
     }
 
     @Override
@@ -25,6 +28,9 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter {
         super.initData();
         mPageSize = BaseInteractor.PAGE_SIZE;
         mInteractor = new CorporationInteractor.InteractorImpl();
+        mAdapter = new BaseRecyclerAdapter();
+        mAdapter.getTypeProvider().register(SCorporation.class, VHCorporation.class, new VHCorporation.LayoutProvider());
+        ((IRecyclerView) mvpView).setAdapter(mAdapter);
     }
 
     @Override
@@ -41,6 +47,12 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter {
     protected void handleCorporationList(SCorporationList result) {
         if (result == null) {
             result = new SCorporationList();
+        }
+
+        if (result.corporationList != null && result.corporationList.size() > 0) {
+            int position = mAdapter.getItemCount();
+            mAdapter.add(result.corporationList);
+            mAdapter.notifyItemRangeInserted(position, result.corporationList.size());
         }
     }
 }

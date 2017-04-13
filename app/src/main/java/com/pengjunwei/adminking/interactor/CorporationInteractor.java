@@ -2,6 +2,7 @@ package com.pengjunwei.adminking.interactor;
 
 import com.pengjunwei.adminking.base.BaseInteractor;
 import com.pengjunwei.adminking.pojo.SCorporationList;
+import com.pengjunwei.support.tool.RxSchedulersHelper;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -23,10 +24,10 @@ public class CorporationInteractor extends BaseInteractor {
     public static class InteractorImpl implements Interactor {
         WebInterface webInterface = createService(WebInterface.class, BaseInteractor.BASE_URL);
 
-
         @Override
         public Observable<SCorporationList> getList(int pageIndex, int pageSize) {
-            return null;
+            return webInterface.getList(pageIndex * pageIndex, pageSize)
+                    .compose(RxSchedulersHelper.<SCorporationList>applyMainSchedulers());
         }
     }
 }
