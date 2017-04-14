@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.beardedhen.androidbootstrap.AwesomeTextView
+            style="@style/TextView"
+            android:text="个数"
+            android:layout_margin="10dp"
+            app:bootstrapBrand="info"
+            app:roundedCorners="true"/>
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/numberEditText"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:inputType="number"
+            android:layout_margin="10dp"
+            app:bootstrapBrand="info"
+            app:roundedCorners="true"/>
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btnCreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="新增"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="lg"
+            app:roundedCorners="true"/>
+    </LinearLayout>
+
+    <com.beardedhen.androidbootstrap.AwesomeTextView
+        android:id="@+id/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="注册码列表"
+        app:bootstrapBrand="primary"/>
+
+    <com.beardedhen.androidbootstrap.BootstrapWell
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottomLayout"
+        android:layout_below="@id/subTitle"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:visibility="visible"
+        app:bootstrapSize="xl"
+        tools:visibility="visible">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.beardedhen.androidbootstrap.BootstrapWell>
+
+</RelativeLayout>

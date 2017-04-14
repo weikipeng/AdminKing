@@ -15,7 +15,7 @@ public class SCorporation extends SBaseResult{
      */
 
     @SerializedName("id")
-    public String id;
+    public int id;
     @SerializedName("name")
     public String name;
     @SerializedName("createDate")

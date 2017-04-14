@@ -24,6 +24,8 @@ public class VHCorporation extends BaseRecyclerViewHolder {
     public VHCorporation(View itemView, IViewParam viewParam) {
         super(itemView, viewParam);
         initView();
+        addEvent();
+//        itemView.setOnClickListener(mViewParam.);
     }
 
     protected void initView() {

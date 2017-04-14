@@ -3,12 +3,13 @@ package com.pengjunwei.android.mvp.recyclerview;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.pengjunwei.android.mvp.BaseMVPView;
 import com.pengjunwei.android.mvp.IMVPProvider;
 import com.pengjunwei.android.mvp.IPresenter;
-
 import com.pengjunwei.support.R;
+
 /**
  * Created by WikiPeng on 2017/3/11 15:30.
  */
@@ -56,5 +57,10 @@ public class BaseRecyclerMVPView extends BaseMVPView implements IRecyclerView {
     public void setAdapter(RecyclerView.Adapter adapter) {
         mRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public int getPositionByView(View view) {
+        return mRecyclerView.getChildAdapterPosition(view);
     }
 }

@@ -18,6 +18,17 @@ public abstract class BaseRecyclerViewHolder extends RecyclerView.ViewHolder {
         this.mViewParam = viewParam;
     }
 
+    protected void addEvent() {
+        if (mViewParam instanceof IRecyclerViewParam) {
+            ViewParamRecyclerView viewParamRecyclerView = ((IRecyclerViewParam) mViewParam).getViewParamRecyclerView();
+            if (viewParamRecyclerView != null) {
+                itemView.setOnClickListener(viewParamRecyclerView.onClickListener);
+                itemView.setOnLongClickListener(viewParamRecyclerView.onLongClickListener);
+            }
+        }
+    }
+
+
     @CallSuper
     public void onBindViewHolder(int position, Object data) {
         this.mData = data;

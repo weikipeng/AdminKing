@@ -7,9 +7,14 @@ import com.pengjunwei.adminking.base.BaseInteractor;
 import com.pengjunwei.adminking.interactor.CorporationInteractor;
 import com.pengjunwei.adminking.pojo.SCorporation;
 import com.pengjunwei.adminking.pojo.SCorporationList;
+import com.pengjunwei.adminking.ui.CorporationActivity;
+import com.pengjunwei.android.mvp.BaseViewParam;
+import com.pengjunwei.android.mvp.IViewParam;
 import com.pengjunwei.android.mvp.recyclerview.BaseRecyclerAdapter;
 import com.pengjunwei.android.mvp.recyclerview.BaseRecyclerPagePresenter;
 import com.pengjunwei.android.mvp.recyclerview.IRecyclerView;
+import com.pengjunwei.android.mvp.recyclerview.IRecyclerViewParam;
+import com.pengjunwei.android.mvp.recyclerview.ViewParamRecyclerView;
 import com.pengjunwei.support.tool.RxSubscriber;
 
 /**
@@ -29,7 +34,8 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter implements I
         super.initData();
         mPageSize = BaseInteractor.PAGE_SIZE;
         mInteractor = new CorporationInteractor.InteractorImpl();
-        mAdapter = new BaseRecyclerAdapter();
+        initViewParam();
+        mAdapter = new BaseRecyclerAdapter(mViewParam);
         mAdapter.getTypeProvider().register(SCorporation.class, VHCorporation.class, new VHCorporation.LayoutProvider());
         ((IRecyclerView) mvpView).setAdapter(mAdapter);
     }
@@ -79,6 +85,14 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter implements I
             provider.showToast("添加客户成功");
             mAdapter.add(result);
             mAdapter.notifyItemInserted(mAdapter.getItemCount()-1);
+        }
+    }
+
+    @Override
+    protected void onRecyclerViewItemClick(int position) {
+        Object data = mAdapter.getItem(position);
+        if (data instanceof SCorporation) {
+            CorporationAction.create(((SCorporation) data).id).startActivity(provider.getActivity());
         }
     }
 }

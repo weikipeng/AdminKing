@@ -65,6 +65,14 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseRecyclerViewHo
         mDataList.add(data);
     }
 
+    public Object getItem(int position) {
+        if (position >= mDataList.size() || position < 0) {
+            return null;
+        }
+
+        return mDataList.get(position);
+    }
+
     public IViewTypeProvider getTypeProvider() {
         if (mTypeProvider == null) {
             mTypeProvider = ViewTypeProvider.getInstance();
