@@ -14,6 +14,7 @@
         android:layout_marginStart="10dp"
         tools:text="名字"/>
 
+
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/btnAction"
         style="@style/TextView"
@@ -22,8 +23,17 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
+        android:text="管理"
         app:bootstrapBrand="primary"
-        app:bootstrapSize="md"
-        android:text="管理"/>
+        app:bootstrapSize="md"/>
 
+    <com.beardedhen.androidbootstrap.AwesomeTextView
+        android:id="@+id/status"
+        style="@style/TextView"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/btnAction"
+        android:layout_toStartOf="@id/btnAction"
+        tools:text="@string/not_bind"/>
 </RelativeLayout>
