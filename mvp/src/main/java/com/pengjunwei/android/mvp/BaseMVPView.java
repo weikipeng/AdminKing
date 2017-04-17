@@ -37,4 +37,9 @@ public class BaseMVPView implements IView {
     public void show(boolean isShow) {
         provider.show(isShow);
     }
+
+    @Override
+    public void showEmptyView(boolean isShow) {
+
+    }
 }

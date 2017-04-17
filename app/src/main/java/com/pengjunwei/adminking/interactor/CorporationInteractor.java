@@ -3,6 +3,7 @@ package com.pengjunwei.adminking.interactor;
 import com.pengjunwei.adminking.base.BaseInteractor;
 import com.pengjunwei.adminking.pojo.SCorporation;
 import com.pengjunwei.adminking.pojo.SCorporationList;
+import com.pengjunwei.adminking.pojo.SLicenseList;
 import com.pengjunwei.support.tool.RxSchedulersHelper;
 
 import io.reactivex.Observable;
@@ -23,12 +24,18 @@ public class CorporationInteractor extends BaseInteractor {
         @POST("/kingmath/corporation/add.php")
         @FormUrlEncoded
         Observable<SCorporation> add(@Field("name") String name);
+
+        @POST("/kingmath/corporation/detail.php")
+        @FormUrlEncoded
+        Observable<SLicenseList> getDetail(@Field("id") int id);
     }
 
     public interface Interactor {
         Observable<SCorporationList> getList(int pageIndex, int pageSize);
 
         Observable<SCorporation> add(String name);
+
+        Observable<SLicenseList> getDetail(int id);
     }
 
     public static class InteractorImpl implements Interactor {
@@ -43,6 +50,11 @@ public class CorporationInteractor extends BaseInteractor {
         @Override
         public Observable<SCorporation> add(String name) {
             return webInterface.add(name).compose(RxSchedulersHelper.<SCorporation>applyMainSchedulers());
+        }
+
+        @Override
+        public Observable<SLicenseList> getDetail(int id) {
+            return webInterface.getDetail(id).compose(RxSchedulersHelper.<SLicenseList>applyMainSchedulers());
         }
     }
 }

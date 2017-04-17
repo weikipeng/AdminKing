@@ -7,4 +7,6 @@ public interface IView {
     <T extends IPresenter> void setPresenter(T presenter);
 
     void show(boolean isShow);
+
+    void showEmptyView(boolean isShow);
 }

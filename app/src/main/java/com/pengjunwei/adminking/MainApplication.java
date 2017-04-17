@@ -12,10 +12,12 @@ import com.pengjunwei.adminking.base.BaseInteractor;
  * Created by WikiPeng on 2017/3/27 18:11.
  */
 public class MainApplication extends Application {
+    protected static MainApplication sMainApplication;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sMainApplication = this;
         TypefaceProvider.registerDefaultIconSets();
         Stetho.initializeWithDefaults(this);
         BaseInteractor.init(this);
@@ -25,5 +27,9 @@ public class MainApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    public static MainApplication getInstance() {
+        return sMainApplication;
     }
 }

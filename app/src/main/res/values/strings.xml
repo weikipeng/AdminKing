@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">金管家</string>
+    <string name="tips_info_no_more_message">没有更多内容了</string>
 </resources>
