@@ -3,4 +3,5 @@
     <string name="tips_info_no_more_message">没有更多内容了</string>
     <string name="not_bind">未激活</string>
     <string name="bind">已绑定</string>
+    <string name="share_license">【来自 %1$s 激活金算师】，复制这条信息￥%2$s￥后打开👉金算师👈</string>
 </resources>

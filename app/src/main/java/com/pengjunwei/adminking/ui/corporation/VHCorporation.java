@@ -6,11 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.pengjunwei.adminking.R;
 import com.pengjunwei.adminking.pojo.SCorporation;
 import com.pengjunwei.android.mvp.IViewParam;
 import com.pengjunwei.android.mvp.recyclerview.BaseRecyclerViewHolder;
 import com.pengjunwei.android.mvp.recyclerview.ILayoutProvider;
+import com.pengjunwei.support.tool.RxSubscriber;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by WikiPeng on 2017/4/13 10:36.
@@ -19,19 +23,35 @@ public class VHCorporation extends BaseRecyclerViewHolder {
 
     protected TextView name;
     protected TextView createTime;
-//    protected TextView updateTime;
+    protected TextView btnAction;
+    //    protected TextView updateTime;
 
     public VHCorporation(View itemView, IViewParam viewParam) {
         super(itemView, viewParam);
         initView();
         addEvent();
-//        itemView.setOnClickListener(mViewParam.);
+        //        btnAction.setOnClickListener(viewParam);
     }
 
     protected void initView() {
         name = (TextView) itemView.findViewById(R.id.name);
         createTime = (TextView) itemView.findViewById(R.id.createTime);
-//        updateTime = (TextView) itemView.findViewById(R.id.updateTime);
+        btnAction = (TextView) itemView.findViewById(R.id.btnAction);
+        //        updateTime = (TextView) itemView.findViewById(R.id.updateTime);
+    }
+
+    @Override
+    protected void addEvent() {
+        super.addEvent();
+        if (mViewParam instanceof IViewParamCorporation) {
+            RxView.clicks(btnAction).throttleFirst(300, TimeUnit.MILLISECONDS)
+                    .subscribe(new RxSubscriber() {
+                        @Override
+                        public void onNext(Object o) {
+                            ((IViewParamCorporation) mViewParam).onManageCorporationClick(getAdapterPosition(), VHCorporation.this, mData);
+                        }
+                    });
+        }
     }
 
     @Override
@@ -48,7 +68,7 @@ public class VHCorporation extends BaseRecyclerViewHolder {
 
         name.setText(corporation.name);
         createTime.setText(corporation.createDate);
-//        updateTime.setText(corporation.updateDate);
+        //        updateTime.setText(corporation.updateDate);
     }
 
     public static class LayoutProvider implements ILayoutProvider {

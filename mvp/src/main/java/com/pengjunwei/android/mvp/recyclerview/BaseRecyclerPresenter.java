@@ -2,6 +2,7 @@ package com.pengjunwei.android.mvp.recyclerview;
 
 import android.app.Activity;
 import android.support.annotation.IdRes;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.pengjunwei.android.mvp.BasePresenter;
@@ -12,13 +13,12 @@ import java.util.List;
 /**
  * Created by WikiPeng on 2017/3/11 15:34.
  */
-public class BaseRecyclerPresenter extends BasePresenter implements IRecyclerPresenter {
+public class BaseRecyclerPresenter extends BasePresenter implements IRecyclerPresenter, IViewParamRecyclerView {
     protected BaseRecyclerAdapter mAdapter;
 
     protected int mRecyclerViewId;
 
-    protected IViewParam            mViewParam;
-    protected ViewParamRecyclerView viewParamRecyclerView;
+    protected IViewParam mViewParam;
 
     public BaseRecyclerPresenter(Activity activity) {
         super(activity);
@@ -47,35 +47,21 @@ public class BaseRecyclerPresenter extends BasePresenter implements IRecyclerPre
     }
 
     protected void initViewParam() {
-        viewParamRecyclerView = new ViewParamRecyclerView();
-        viewParamRecyclerView.onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = ((IRecyclerView)mvpView).getPositionByView(v);
-                onRecyclerViewItemClick(position);
-            }
-        };
-        viewParamRecyclerView.onLongClickListener = new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                int position = ((IRecyclerView)mvpView).getPositionByView(v);
-                return onRecyclerViewItemLongClick(position);
-            }
-        };
-        mViewParam = new IRecyclerViewParam() {
-            @Override
-            public ViewParamRecyclerView getViewParamRecyclerView() {
-                return viewParamRecyclerView;
-            }
-        };
+        mViewParam = this;
     }
 
-    protected boolean onRecyclerViewItemLongClick(int position) {
+    @Override
+    public void onRecyclerViewItemClick(int position, RecyclerView.ViewHolder viewHolder, Object data) {
+
+    }
+
+    @Override
+    public boolean onRecyclerViewItemLongClick(int position, RecyclerView.ViewHolder viewHolder, Object data) {
         return false;
     }
 
-    protected void onRecyclerViewItemClick(int position) {
-
+    @Override
+    public boolean isRecyclerViewItemLongClickable(int position, RecyclerView.ViewHolder viewHolder, Object data) {
+        return false;
     }
-
 }

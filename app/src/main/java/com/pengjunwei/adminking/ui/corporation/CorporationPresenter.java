@@ -1,27 +1,29 @@
 package com.pengjunwei.adminking.ui.corporation;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
+import com.pengjunwei.adminking.R;
 import com.pengjunwei.adminking.base.BaseInteractor;
 import com.pengjunwei.adminking.interactor.CorporationInteractor;
 import com.pengjunwei.adminking.pojo.SCorporation;
 import com.pengjunwei.adminking.pojo.SCorporationList;
-import com.pengjunwei.adminking.ui.CorporationActivity;
-import com.pengjunwei.android.mvp.BaseViewParam;
-import com.pengjunwei.android.mvp.IViewParam;
 import com.pengjunwei.android.mvp.recyclerview.BaseRecyclerAdapter;
 import com.pengjunwei.android.mvp.recyclerview.BaseRecyclerPagePresenter;
 import com.pengjunwei.android.mvp.recyclerview.IRecyclerView;
-import com.pengjunwei.android.mvp.recyclerview.IRecyclerViewParam;
-import com.pengjunwei.android.mvp.recyclerview.ViewParamRecyclerView;
 import com.pengjunwei.support.tool.RxSubscriber;
 
 /**
  * Created by WikiPeng on 2017/4/12 14:58.
  */
-public class CorporationPresenter extends BaseRecyclerPagePresenter implements ICorporationPresenter {
+public class CorporationPresenter extends BaseRecyclerPagePresenter implements ICorporationPresenter, IViewParamCorporation {
     protected CorporationInteractor.Interactor mInteractor;
+
+    //    protected View.OnClickListener
 
     public CorporationPresenter(Activity activity) {
         super(activity);
@@ -84,15 +86,33 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter implements I
         } else {
             provider.showToast("添加客户成功");
             mAdapter.add(result);
-            mAdapter.notifyItemInserted(mAdapter.getItemCount()-1);
+            mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
         }
     }
 
     @Override
-    protected void onRecyclerViewItemClick(int position) {
-        Object data = mAdapter.getItem(position);
+    public void onRecyclerViewItemClick(int position, RecyclerView.ViewHolder viewHolder, Object data) {
         if (data instanceof SCorporation) {
             CorporationAction.create(((SCorporation) data).id).startActivity(provider.getActivity());
+        }
+    }
+
+    protected void shareLicenseCode(SCorporation corporation) {
+        // Gets a handle to the clipboard service.
+        ClipboardManager clipboard = (ClipboardManager)
+                provider.getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+
+        // Creates a new text clip to put on the clipboard
+        ClipData clip = ClipData.newPlainText("king license", provider.getActivity().getString(R.string.share_license
+                , corporation.name, corporation.createDate));
+        // Set the clipboard's primary clip.
+        clipboard.setPrimaryClip(clip);
+    }
+
+    @Override
+    public void onManageCorporationClick(int position, RecyclerView.ViewHolder viewHolder, Object data) {
+        if (data instanceof SCorporation) {
+            shareLicenseCode((SCorporation)data);
         }
     }
 }
