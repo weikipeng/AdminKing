@@ -6,7 +6,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.jakewharton.rxbinding2.widget.SeekBarChangeEvent;
 import com.pengjunwei.adminking.R;
 import com.pengjunwei.adminking.base.BaseInteractor;
 import com.pengjunwei.adminking.interactor.CorporationInteractor;
@@ -16,6 +20,8 @@ import com.pengjunwei.android.mvp.recyclerview.BaseRecyclerAdapter;
 import com.pengjunwei.android.mvp.recyclerview.BaseRecyclerPagePresenter;
 import com.pengjunwei.android.mvp.recyclerview.IRecyclerView;
 import com.pengjunwei.support.tool.RxSubscriber;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by WikiPeng on 2017/4/12 14:58.
@@ -102,17 +108,31 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter implements I
         ClipboardManager clipboard = (ClipboardManager)
                 provider.getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 
+        JsonObject licenseObject = new JsonObject();
+        licenseObject.addProperty("license", corporation.createDate);
+        licenseObject.addProperty("channel", SCorporation.getChannel(provider.getActivity()));
+
+        String paramString = licenseObject.toString();
+
+        try {
+            paramString = Base64.encodeToString(paramString.getBytes("utf-8"), Base64.NO_WRAP);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         // Creates a new text clip to put on the clipboard
         ClipData clip = ClipData.newPlainText("king license", provider.getActivity().getString(R.string.share_license
-                , corporation.name, corporation.createDate));
+                , corporation.name, paramString));
         // Set the clipboard's primary clip.
         clipboard.setPrimaryClip(clip);
+
+        Toast.makeText(provider.getActivity(), "激活邀请码已经复制到剪贴板", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onManageCorporationClick(int position, RecyclerView.ViewHolder viewHolder, Object data) {
         if (data instanceof SCorporation) {
-            shareLicenseCode((SCorporation)data);
+            shareLicenseCode((SCorporation) data);
         }
     }
 }
