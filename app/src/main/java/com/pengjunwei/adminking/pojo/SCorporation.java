@@ -32,18 +32,18 @@ public class SCorporation extends SBaseResult{
 
     public String channel;
 
-    public static String getChannel(Context context) {
-        String channel = "";
-        try {
-            ApplicationInfo ai     = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-            Bundle          bundle = ai.metaData;
-            channel = bundle.getString("UMENG_CHANNEL");
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e(TAG, "Failed to load meta-data, NameNotFound: " + e.getMessage());
-        } catch (NullPointerException e) {
-            Log.e(TAG, "Failed to load meta-data, NullPointer: " + e.getMessage());
-        }
-
-        return channel;
-    }
+//    public static String getChannel(Context context) {
+//        String channel = "";
+//        try {
+//            ApplicationInfo ai     = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+//            Bundle          bundle = ai.metaData;
+//            channel = bundle.getString("UMENG_CHANNEL");
+//        } catch (PackageManager.NameNotFoundException e) {
+//            Log.e(TAG, "Failed to load meta-data, NameNotFound: " + e.getMessage());
+//        } catch (NullPointerException e) {
+//            Log.e(TAG, "Failed to load meta-data, NullPointer: " + e.getMessage());
+//        }
+//
+//        return channel;
+//    }
 }

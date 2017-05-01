@@ -110,7 +110,7 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter implements I
 
         JsonObject licenseObject = new JsonObject();
         licenseObject.addProperty("license", corporation.createDate);
-        licenseObject.addProperty("channel", SCorporation.getChannel(provider.getActivity()));
+        licenseObject.addProperty("channel", "b01");
 
         String paramString = licenseObject.toString();
 
