@@ -13,9 +13,10 @@ import com.pengjunwei.android.mvp.recyclerview.BaseRecyclerMVPView;
 /**
  * Created by WikiPeng on 2017/4/14 10:43.
  */
-public class CorporationDetailView extends BaseRecyclerMVPView implements View.OnClickListener {
+public class CorporationDetailView extends BaseRecyclerMVPView implements ICorporationDetailView, View.OnClickListener {
     protected EditText mNum;
     protected TextView mBtnCreate;
+    protected TextView mLicenseCount;
 
     public <T extends IPresenter> CorporationDetailView(IMVPProvider provider, T presenter) {
         super(provider, presenter);
@@ -26,6 +27,7 @@ public class CorporationDetailView extends BaseRecyclerMVPView implements View.O
         super.initView();
         mBtnCreate = provider.findViewById(R.id.btnCreate);
         mNum = provider.findViewById(R.id.numberEditText);
+        mLicenseCount = provider.findViewById(R.id.subTitle);
     }
 
     @Override
@@ -53,5 +55,10 @@ public class CorporationDetailView extends BaseRecyclerMVPView implements View.O
                 }
                 break;
         }
+    }
+
+    @Override
+    public void updateCount(int count) {
+        mLicenseCount.setText(provider.getActivity().getResources().getString(R.string.pattern_count, count));
     }
 }

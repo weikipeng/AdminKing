@@ -20,10 +20,10 @@ import com.pengjunwei.support.tool.RxSubscriber;
 /**
  * Created by WikiPeng on 2017/4/14 10:43.
  */
-public class CorporationDetailPresenter extends BaseRecyclerPagePresenter implements ICorporationDetailPresenter{
-    protected CorporationAction mCorporationAction;
+public class CorporationDetailPresenter extends BaseRecyclerPagePresenter implements ICorporationDetailPresenter {
+    protected CorporationAction                mCorporationAction;
     protected CorporationInteractor.Interactor mInteractor;
-    protected LicenseInteractor.Interactor mLicenseInteractor;
+    protected LicenseInteractor.Interactor     mLicenseInteractor;
 
     public CorporationDetailPresenter(Activity activity) {
         super(activity);
@@ -62,19 +62,28 @@ public class CorporationDetailPresenter extends BaseRecyclerPagePresenter implem
     }
 
     protected void handleLicenseListResult(SLicenseList result) {
+        int count = 0;
         if (result == null) {
             result = new SLicenseList();
         }
 
         if (result.handleErrorMessage()) {
+            ((ICorporationDetailView) mvpView).updateCount(count);
             return;
         }
+
+        if (result.licenseList != null) {
+            count = result.licenseList.size();
+        }
+
+        ((ICorporationDetailView) mvpView).updateCount(count);
 
         if (result.handleEmptyMessage(mPageIndex > 0)) {
             mvpView.showEmptyView(true);
             provider.showToast("没有数据显示");
             return;
         }
+
 
         mvpView.showEmptyView(false);
         mAdapter.add(result.licenseList);
@@ -83,7 +92,7 @@ public class CorporationDetailPresenter extends BaseRecyclerPagePresenter implem
 
     @Override
     public void createLicense(int num) {
-        mLicenseInteractor.create(mCorporationAction.id,num).subscribe(new RxSubscriber<SLicenseList>() {
+        mLicenseInteractor.create(mCorporationAction.id, mCorporationAction.channel, num).subscribe(new RxSubscriber<SLicenseList>() {
             @Override
             public void onNext(SLicenseList result) {
                 handleLicenseListResult(result);

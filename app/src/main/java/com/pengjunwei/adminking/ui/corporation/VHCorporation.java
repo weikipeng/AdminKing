@@ -24,6 +24,7 @@ public class VHCorporation extends BaseRecyclerViewHolder {
     protected TextView name;
     protected TextView createTime;
     protected TextView btnAction;
+    protected TextView btnDownloadLink;
     //    protected TextView updateTime;
 
     public VHCorporation(View itemView, IViewParam viewParam) {
@@ -37,6 +38,7 @@ public class VHCorporation extends BaseRecyclerViewHolder {
         name = (TextView) itemView.findViewById(R.id.name);
         createTime = (TextView) itemView.findViewById(R.id.createTime);
         btnAction = (TextView) itemView.findViewById(R.id.btnAction);
+        btnDownloadLink = (TextView) itemView.findViewById(R.id.btnDownloadLink);
         //        updateTime = (TextView) itemView.findViewById(R.id.updateTime);
     }
 
@@ -49,6 +51,14 @@ public class VHCorporation extends BaseRecyclerViewHolder {
                         @Override
                         public void onNext(Object o) {
                             ((IViewParamCorporation) mViewParam).onManageCorporationClick(getAdapterPosition(), VHCorporation.this, mData);
+                        }
+                    });
+
+            RxView.clicks(btnDownloadLink).throttleFirst(300, TimeUnit.MILLISECONDS)
+                    .subscribe(new RxSubscriber() {
+                        @Override
+                        public void onNext(Object o) {
+                            ((IViewParamCorporation) mViewParam).onDownloadLinkClick(getAdapterPosition(), VHCorporation.this, mData);
                         }
                     });
         }
@@ -67,7 +77,7 @@ public class VHCorporation extends BaseRecyclerViewHolder {
         }
 
         name.setText(corporation.name);
-        createTime.setText(corporation.createDate);
+        //        createTime.setText(corporation.createDate);
         //        updateTime.setText(corporation.updateDate);
     }
 

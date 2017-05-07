@@ -18,19 +18,20 @@ public class LicenseInteractor extends BaseInteractor {
         //http://localhost/kingmath/license/create.php
         @POST("/kingmath/license/create.php")
         @FormUrlEncoded
-        Observable<SLicenseList> create(@Field("c") int id,@Field("num") int num,@Field("s") String sign);
+        Observable<SLicenseList> create(@Field("c") int id,@Field("channel") String channel
+                ,@Field("num") int num,@Field("s") String sign);
     }
 
     public interface Interactor {
-        Observable<SLicenseList> create(int id,int num);
+        Observable<SLicenseList> create(int id,String channel,int num);
     }
 
     public static class InteractorImpl implements Interactor {
         WebInterface webInterface = createService(WebInterface.class, BaseInteractor.BASE_URL);
 
         @Override
-        public Observable<SLicenseList> create(int id,int num) {
-            return webInterface.create(id,num,"").compose(RxSchedulersHelper.<SLicenseList>applyMainSchedulers());
+        public Observable<SLicenseList> create(int id,String channel,int num) {
+            return webInterface.create(id,channel,num,"").compose(RxSchedulersHelper.<SLicenseList>applyMainSchedulers());
         }
     }
 }

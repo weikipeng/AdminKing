@@ -99,7 +99,9 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter implements I
     @Override
     public void onRecyclerViewItemClick(int position, RecyclerView.ViewHolder viewHolder, Object data) {
         if (data instanceof SCorporation) {
-            CorporationAction.create(((SCorporation) data).id).startActivity(provider.getActivity());
+            int id = ((SCorporation) data).id;
+            String channel = ((SCorporation) data).channel;
+            CorporationAction.create(id,channel).startActivity(provider.getActivity());
         }
     }
 
@@ -134,5 +136,10 @@ public class CorporationPresenter extends BaseRecyclerPagePresenter implements I
         if (data instanceof SCorporation) {
             shareLicenseCode((SCorporation) data);
         }
+    }
+
+    @Override
+    public void onDownloadLinkClick(int position, RecyclerView.ViewHolder viewHolder, Object data) {
+        Toast.makeText(provider.getActivity(), "下载链接已经复制到剪贴板", Toast.LENGTH_SHORT).show();
     }
 }

@@ -13,10 +13,12 @@ import static com.pengjunwei.adminking.Constants.*;
  * Created by WikiPeng on 2017/4/14 10:45.
  */
 public class CorporationAction implements Parcelable {
-    public int id;
+    public int    id;
+    public String channel;
 
-    private CorporationAction(int id) {
+    private CorporationAction(int id, String channel) {
         this.id = id;
+        this.channel = channel;
     }
 
     public void startActivity(Context context) {
@@ -33,8 +35,8 @@ public class CorporationAction implements Parcelable {
         return intent;
     }
 
-    public static CorporationAction create(int id) {
-        CorporationAction result = new CorporationAction(id);
+    public static CorporationAction create(int id,String channel) {
+        CorporationAction result = new CorporationAction(id,channel);
         return result;
     }
 
@@ -53,13 +55,15 @@ public class CorporationAction implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeString(this.channel);
     }
 
     protected CorporationAction(Parcel in) {
         this.id = in.readInt();
+        this.channel = in.readString();
     }
 
-    public static final Parcelable.Creator<CorporationAction> CREATOR = new Parcelable.Creator<CorporationAction>() {
+    public static final Creator<CorporationAction> CREATOR = new Creator<CorporationAction>() {
         @Override
         public CorporationAction createFromParcel(Parcel source) {
             return new CorporationAction(source);

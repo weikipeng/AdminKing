@@ -8,4 +8,5 @@ import android.support.v7.widget.RecyclerView;
 
 public interface IViewParamCorporation {
     void onManageCorporationClick(int position, RecyclerView.ViewHolder viewHolder, Object data);
+    void onDownloadLinkClick(int position, RecyclerView.ViewHolder viewHolder, Object data);
 }
